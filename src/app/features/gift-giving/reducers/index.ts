@@ -33,6 +33,7 @@ const selectUiHinstBranch = createSelector(selectFeature, b => b.uiHints);
 // 'Helpers'
 const selectHolidayArray = createSelector(selectHolidaysBranch, fromHolidays.selectHolidayArray);
 export const selectShowAllHolidays = createSelector(selectUiHinstBranch, b => b.showAll);
+export const selectSortingHolidaysBy = createSelector(selectUiHinstBranch, b => b.sortHolidaysBy);
 
 // Then what your components needs.
 
@@ -46,6 +47,20 @@ const selectHolidayListItemsUnfiltered = createSelector(selectHolidayArray, holi
   } as HolidayListItem))
 );
 
+const selectHolidayListSorted = createSelector(selectHolidayListItemsUnfiltered, selectSortingHolidaysBy,
+  (list, by) => {
+    return [...list.sort((lhs, rhs) => {
+      if (lhs[by] < rhs[by]) {
+        return -1;
+      }
+      if (lhs[by] > rhs[by]) {
+        return 1;
+      }
+      return 0;
+    })];
+  }
+);
+
 // selectShowAllHolidays is being used as 'all', selectHolidayListItemsUnfiltered as holidays
-export const selectHolidayListItems = createSelector(selectShowAllHolidays, selectHolidayListItemsUnfiltered, (all, holidays) =>
+export const selectHolidayListItems = createSelector(selectShowAllHolidays, selectHolidayListSorted, (all, holidays) =>
   holidays.filter(h => all ? true : !h.past));
