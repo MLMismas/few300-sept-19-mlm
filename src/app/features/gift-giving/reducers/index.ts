@@ -38,13 +38,16 @@ export const selectSortingHolidaysBy = createSelector(selectUiHintsBranch, b => 
 
 // Then what your components needs.
 
+export const selectHolidaysLoaded = createSelector(selectUiHintsBranch, b => b.holidaysLoaded);
+
 // - we need on that returns a HolidayListItem[] for our holidayList component.
 const selectHolidayListItemsUnfiltered = createSelector(selectHolidayArray, holidays =>
   holidays.map(holiday => ({
     id: holiday.id,
     date: holiday.date,
     name: holiday.name,
-    past: new Date(holiday.date) < new Date()
+    past: new Date(holiday.date) < new Date(),
+    isTemporary: holiday.id.startsWith('T')
   } as HolidayListItem))
 );
 

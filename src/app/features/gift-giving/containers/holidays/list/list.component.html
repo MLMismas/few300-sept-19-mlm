@@ -1,8 +1,13 @@
+<div class="alert alert-info"
+     *ngIf="model.length === 0">
+  <h3>You have no holidays! Add some!</h3>
+</div>
 <ul class="list-unstyled">
   <li class="alert"
       [ngClass]="{'alert-success': !holiday.past, 'alert-info': holiday.past }"
       *ngFor="let holiday of model">
     <h5>{{ holiday.name }}</h5>
     <p>{{ holiday.date | date:'fullDate' }}</p>
+    <p>Saved: {{ !holiday.isTemporary }}</p>
   </li>
 </ul>
