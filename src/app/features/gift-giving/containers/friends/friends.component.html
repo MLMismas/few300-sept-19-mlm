@@ -1,1 +1,7 @@
-<p>friends works!</p>
+<header class="page-header">
+  <h3>Friends</h3>
+</header>
+<section>
+  <app-friends-entry></app-friends-entry>
+  <app-friends-list [model]="friends$ | async"></app-friends-list>
+</section>
