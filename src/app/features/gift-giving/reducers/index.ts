@@ -1,7 +1,7 @@
 export const featureName = 'giftGiving';
 import * as fromHolidays from './holidays.reducer';
 import * as fromUiHints from './ui-hints.reducer';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, ActionReducerMap } from '@ngrx/store';
 import { HolidayListItem } from '../models';
 
 export interface GiftGivingState {
@@ -13,14 +13,15 @@ export interface GiftGivingState {
 // interface and reducer
 // both names must be the same
 
-// export const reducers: ActionReducerMap<GiftGivingState> = {
-//  holidays: fromHolidays.reducer
-// };
-
-export const reducers = {
+export const reducers: ActionReducerMap<GiftGivingState> = {
   holidays: fromHolidays.reducer,
   uiHints: fromUiHints.reducer
 };
+
+// export const reducers = {
+//  holidays: fromHolidays.reducer,
+//  uiHints: fromUiHints.reducer
+// };
 
 
 // Feature Selector
@@ -28,12 +29,12 @@ const selectFeature = createFeatureSelector<GiftGivingState>(featureName);
 
 // Selector per branch (e.g. on for 'holidays')
 const selectHolidaysBranch = createSelector(selectFeature, b => b.holidays);
-const selectUiHinstBranch = createSelector(selectFeature, b => b.uiHints);
+const selectUiHintsBranch = createSelector(selectFeature, b => b.uiHints);
 
 // 'Helpers'
 const selectHolidayArray = createSelector(selectHolidaysBranch, fromHolidays.selectHolidayArray);
-export const selectShowAllHolidays = createSelector(selectUiHinstBranch, b => b.showAll);
-export const selectSortingHolidaysBy = createSelector(selectUiHinstBranch, b => b.sortHolidaysBy);
+export const selectShowAllHolidays = createSelector(selectUiHintsBranch, b => b.showAll);
+export const selectSortingHolidaysBy = createSelector(selectUiHintsBranch, b => b.sortHolidaysBy);
 
 // Then what your components needs.
 

@@ -16,7 +16,7 @@ const initialState: UiHintsState = {
 const myReducer = createReducer(
   initialState,
   on(sortFilterActions.filterShowall, (state) => ({ ...state, showAll: true })),
-  on(sortFilterActions.filterShowOnlyUpcoming, (state) => ({ ...state, sshowAll: false })),
+  on(sortFilterActions.filterShowOnlyUpcoming, (state) => ({ ...state, showAll: false })),
   on(sortFilterActions.sortHolidaysByDate, (state) => ({ ...state, sortHolidaysBy: 'date' })),
   on(sortFilterActions.sortHolidaysByName, (state) => ({ ...state, sortHolidaysBy: 'name' }))
 );
